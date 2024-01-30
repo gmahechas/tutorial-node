@@ -1,0 +1,22 @@
+{
+  "name": "clean-architecture",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "gmahechas",
+  "license": "ISC",
+  "scripts": {
+    "start:dev": "ts-node-dev --respawn src/index.ts",
+    "start": "rm -rf dist && tsc && node dist/index.js"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.10",
+    "@types/yargs": "^17.0.32",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+}
