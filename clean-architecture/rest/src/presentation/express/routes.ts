@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { PostRoutes } from './modules/posts/post.routes';
-import { CommentRoutes } from './modules/comments/comment.routes';
+import { PostRoutes } from './modules/post/post.routes';
+import { CommentRoutes } from './modules/comment/comment.routes';
 
 export class Routes {
 
