@@ -1,17 +1,23 @@
-
 export class CreatePostDto {
 
 	private constructor(
 		public readonly title: string,
+		public readonly content: string,
 	) { }
 
-	public static create(payload: { [key: string]: any }): CreatePostDto {
-		const { title } = payload;
+	public static create(payload: { [key: string]: any }): [string[] | null, CreatePostDto] {
+		const { title, content } = payload;
+		const errors: string[] = [];
 
 		if (!title) {
-			throw new Error('Title is required');
+			errors.push('title is required');
+			/* throw new Error('title is required'); */
 		}
 
-		return new CreatePostDto(title);
+		if (!content) {
+			errors.push('content is required');
+		}
+
+		return [errors.length ? errors : null, new CreatePostDto(content, title)];
 	}
 }
