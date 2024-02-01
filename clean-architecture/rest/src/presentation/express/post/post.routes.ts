@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { PostController } from './post.controller';
-import { PostDatasourceImpl, PostRepositoryImpl } from '../../../../infrastructure';
+import { PostDatasourceImpl, PostRepositoryImpl } from '../../../infrastructure';
 
 export class PostRoutes {
 

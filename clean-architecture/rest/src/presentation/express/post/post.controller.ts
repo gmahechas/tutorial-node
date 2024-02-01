@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { CreatePostDto, CreatePostUseCase, PostRepository } from '../../../../domain';
-import { UpdatePostDto } from '../../../../domain';
+import { CreatePostDto, CreatePostUseCase, PostRepository } from '../../../domain';
+import { UpdatePostDto } from '../../../domain';
 
 export class PostController {
 
@@ -9,14 +9,8 @@ export class PostController {
 	) { }
 
 	public getAll = async (request: Request, response: Response): Promise<void> => {
-		new CreatePostUseCase(this.postRepository).execute({
-			title: 'title',
-			content: 'content',
-		}).then((post) => {
-			response.status(200).json(post);
-		}).catch((error) => {
-			response.status(500).json(error);
-		})
+		const posts = await this.postRepository.getAll();
+		response.status(200).json({ posts });
 	}
 
 	public getById = async (request: Request, response: Response): Promise<void> => {
@@ -30,6 +24,15 @@ export class PostController {
 			response.status(400).json(errors);
 			return;
 		}
+
+		new CreatePostUseCase(this.postRepository).execute({
+			title: 'title',
+			content: 'content',
+		}).then((post) => {
+			response.status(200).json(post);
+		}).catch((error) => {
+			response.status(500).json(error);
+		})
 
 		const post = await this.postRepository.create(createPostDto);
 		response.status(200).send(post);
