@@ -1,34 +1,53 @@
 import { Request, Response } from 'express';
-import { CreatePostDto } from '../../../../domain/dtos/modules/post/create-post.dto';
-import { UpdatePostDto } from '../../../../domain/dtos/modules/post/update-post.dto';
+import { CreatePostDto, CreatePostUseCase, PostRepository } from '../../../../domain';
+import { UpdatePostDto } from '../../../../domain';
 
 export class PostController {
 
-	public getPosts = async (request: Request, response: Response): Promise<void> => {
-		response.status(200).send('hello from posts controller');
+	constructor(
+		private readonly postRepository: PostRepository,
+	) { }
+
+	public getAll = async (request: Request, response: Response): Promise<void> => {
+		new CreatePostUseCase(this.postRepository).execute({
+			title: 'title',
+			content: 'content',
+		}).then((post) => {
+			response.status(200).json(post);
+		}).catch((error) => {
+			response.status(500).json(error);
+		})
 	}
 
-	public createPost = async (request: Request, response: Response): Promise<void> => {
+	public getById = async (request: Request, response: Response): Promise<void> => {
+		const post = await this.postRepository.getById(+request.params.postId);
+		response.status(200).json({ post });
+	}
+
+	public create = async (request: Request, response: Response): Promise<void> => {
 		const [errors, createPostDto] = CreatePostDto.create(request.body);
 		if (errors) {
-			response.status(400).send({ errors });
+			response.status(400).json(errors);
 			return;
 		}
 
-		console.log(createPostDto);
-
-		response.status(200).send('hello from create post controller');
+		const post = await this.postRepository.create(createPostDto);
+		response.status(200).send(post);
 	}
 
-	public updatePost = async (request: Request, response: Response): Promise<void> => {
+	public update = async (request: Request, response: Response): Promise<void> => {
 		const [errors, updatePostDto] = UpdatePostDto.create({ ...request.body, postId: +request.params.postId });
 		if (errors) {
-			response.status(400).send({ errors });
+			response.status(400).json(errors);
 			return;
 		}
 
-		console.log(updatePostDto.values);
+		const post = await this.postRepository.update(updatePostDto);
+		response.status(200).send(post);
+	}
 
-		response.status(200).send('hello from update post controller');
+	public delete = async (request: Request, response: Response): Promise<void> => {
+		const post = await this.postRepository.delete(+request.params.postId);
+		response.status(200).send(post);
 	}
 }

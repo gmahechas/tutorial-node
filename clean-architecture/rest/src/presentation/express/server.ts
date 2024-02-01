@@ -1,4 +1,5 @@
 import express, { Application, Router, json, urlencoded } from 'express';
+import compression from 'compression';
 import { errorHandler, registerAsyncHandler } from './helpers';
 
 interface Options {
@@ -16,6 +17,7 @@ export class Server {
 		this.app = express();
 		this.app.use(json());
 		this.app.use(urlencoded({ extended: true }));
+		this.app.use(compression())
 		this.port = options.port;
 		this.router = options.router;
 	}

@@ -11,6 +11,6 @@ export class CommentRoutes {
 	}
 
 	private setupRoutes() {
-		this.router.get('/', this.commentController.getComments);
+		this.router.get('/', this.commentController.getAll);
 	}
 }

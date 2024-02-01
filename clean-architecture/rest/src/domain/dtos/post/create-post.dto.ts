@@ -9,14 +9,8 @@ export class CreatePostDto {
 		const { title, content } = payload;
 		const errors: string[] = [];
 
-		if (!title) {
-			errors.push('title is required');
-			/* throw new Error('title is required'); */
-		}
-
-		if (!content) {
-			errors.push('content is required');
-		}
+		if (!title) errors.push('title is required');
+		if (!content) errors.push('content is required');
 
 		return [errors.length ? errors : null, new CreatePostDto(content, title)];
 	}
