@@ -1,6 +1,5 @@
 import express, { Application, Router, json, urlencoded } from 'express';
-import { errorHandler } from './helpers/error-handler';
-import { registerAsyncHandler } from './helpers/async-handler';
+import { errorHandler, registerAsyncHandler } from './helpers';
 
 interface Options {
 	port: number,

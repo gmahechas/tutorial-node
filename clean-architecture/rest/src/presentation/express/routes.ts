@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { PostRoutes } from './modules/post/post.routes';
-import { CommentRoutes } from './modules/comment/comment.routes';
+import { PostRoutes } from './modules/post';
+import { CommentRoutes } from './modules/comment';
 
 export class Routes {
 
@@ -13,7 +13,7 @@ export class Routes {
 	}
 
 	private setupRoutes(): void {
-		this.router.use('/posts', this.postRoutes.router);
-		this.router.use('/comments', this.commentRoutes.router);
+		this.router.use('/post', this.postRoutes.router);
+		this.router.use('/comment', this.commentRoutes.router);
 	}
 }

@@ -12,5 +12,6 @@ export class PostRoutes {
 
 	private setupRoutes(): void {
 		this.router.get('/', this.postController.getPosts);
+		this.router.post('/', this.postController.createPost);
 	}
 }
