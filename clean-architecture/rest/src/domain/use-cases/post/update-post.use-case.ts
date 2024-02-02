@@ -1,4 +1,6 @@
-import { CreatePostDto, PostEntity, PostRepository, UpdatePostDto } from '../..';
+import { UpdatePostDto } from '../../dtos';
+import { PostEntity } from '../../entities';
+import { PostRepository } from '../../repositories';
 
 export interface IUpdatePostUseCase {
 	execute(dto: UpdatePostDto): Promise<PostEntity>;

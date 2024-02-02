@@ -1,4 +1,7 @@
-import { CreatePostDto, PostDatasource, PostEntity, PostRepository, UpdatePostDto } from '../../domain';
+import { PostEntity } from '../../domain/entities';
+import { PostDatasource } from '../../domain/datasources';
+import { PostRepository } from '../../domain/repositories';
+import { CreatePostDto, DeletePostDto, GetAllPostDto, GetByIdPostDto, UpdatePostDto } from '../../domain/dtos';
 
 export class PostRepositoryImpl implements PostRepository {
 
@@ -6,11 +9,11 @@ export class PostRepositoryImpl implements PostRepository {
 		private readonly datasource: PostDatasource,
 	) {}
 
-	getAll(): Promise<PostEntity[]> {
-		return this.datasource.getAll()
+	getAll(payload: GetAllPostDto): Promise<PostEntity[]> {
+		return this.datasource.getAll(payload);
 	}
 
-	getById(payload: number): Promise<PostEntity> {
+	getById(payload: GetByIdPostDto): Promise<PostEntity> {
 		return this.datasource.getById(payload);
 	}
 
@@ -22,7 +25,7 @@ export class PostRepositoryImpl implements PostRepository {
 		return this.datasource.update(payload);
 	}
 
-	delete(payload: number): Promise<PostEntity> {
+	delete(payload: DeletePostDto): Promise<PostEntity> {
 		return this.datasource.delete(payload);
 	}
 }

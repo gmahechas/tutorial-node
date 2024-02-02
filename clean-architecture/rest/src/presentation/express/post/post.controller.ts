@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import { CreatePostDto, CreatePostUseCase, PostRepository } from '../../../domain';
-import { UpdatePostDto } from '../../../domain';
+import { PostRepository } from '../../../domain/repositories';
+import { CreatePostUseCase, DeletePostUseCase, GetAllPostUseCase, GetByIdPostUseCase, UpdatePostUseCase } from '../../../domain/use-cases';
+import { CreatePostDto, UpdatePostDto, DeletePostDto, GetAllPostDto, GetByIdPostDto } from '../../../domain/dtos';
 
 export class PostController {
 
@@ -8,13 +9,30 @@ export class PostController {
 		private readonly postRepository: PostRepository,
 	) { }
 
-	public getAll = async (request: Request, response: Response): Promise<void> => {
-		const posts = await this.postRepository.getAll();
-		response.status(200).json({ posts });
+	public getAll = (request: Request, response: Response) => {
+		const [errors, getAllPostDto] = GetAllPostDto.create();
+		if (errors) {
+			response.status(400).json(errors);
+			return;
+		}
+
+		new GetAllPostUseCase(this.postRepository).execute(getAllPostDto)
+			.then((posts) => {
+				response.status(200).json(posts);
+			})
+			.catch((error) => {
+				response.status(500).json({ error });
+			});
 	}
 
 	public getById = async (request: Request, response: Response): Promise<void> => {
-		const post = await this.postRepository.getById(+request.params.postId);
+		const [errors, getByIdPostDto] = GetByIdPostDto.create({ postId: +request.params.postId });
+		if (errors) {
+			response.status(400).json(errors);
+			return;
+		}
+
+		const post = await new GetByIdPostUseCase(this.postRepository).execute(getByIdPostDto);
 		response.status(200).json({ post });
 	}
 
@@ -25,17 +43,8 @@ export class PostController {
 			return;
 		}
 
-		new CreatePostUseCase(this.postRepository).execute({
-			title: 'title',
-			content: 'content',
-		}).then((post) => {
-			response.status(200).json(post);
-		}).catch((error) => {
-			response.status(500).json(error);
-		})
-
-		const post = await this.postRepository.create(createPostDto);
-		response.status(200).send(post);
+		const post = await new CreatePostUseCase(this.postRepository).execute(createPostDto);
+		response.status(200).json(post);
 	}
 
 	public update = async (request: Request, response: Response): Promise<void> => {
@@ -45,12 +54,18 @@ export class PostController {
 			return;
 		}
 
-		const post = await this.postRepository.update(updatePostDto);
-		response.status(200).send(post);
+		const post = await new UpdatePostUseCase(this.postRepository).execute(updatePostDto);
+		response.status(200).json(post);
 	}
 
 	public delete = async (request: Request, response: Response): Promise<void> => {
-		const post = await this.postRepository.delete(+request.params.postId);
-		response.status(200).send(post);
+		const [errors, deletePostDto] = DeletePostDto.create({ postId: +request.params.postId });
+		if (errors) {
+			response.status(400).json({ errors });
+			return;
+		}
+
+		const post = await new DeletePostUseCase(this.postRepository).execute(deletePostDto);
+		response.status(200).json(post);
 	}
 }

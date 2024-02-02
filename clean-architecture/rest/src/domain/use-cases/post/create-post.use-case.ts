@@ -1,4 +1,6 @@
-import { CreatePostDto, PostEntity, PostRepository } from '../..';
+import { CreatePostDto,  } from '../../dtos';
+import { PostEntity } from '../../entities';
+import { PostRepository } from '../../repositories';
 
 export interface ICreatePostUseCase {
 	execute(dto: CreatePostDto): Promise<PostEntity>;

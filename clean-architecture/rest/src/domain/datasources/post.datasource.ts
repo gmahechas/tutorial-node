@@ -1,11 +1,10 @@
 import { PostEntity } from '../entities/post.entity';
-import { CreatePostDto } from '../dtos/post/create-post.dto';
-import { UpdatePostDto } from '../dtos/post/update-post.dto';
+import { DeletePostDto, CreatePostDto, UpdatePostDto, GetByIdPostDto, GetAllPostDto } from '../dtos/post';
 
 export abstract class PostDatasource {
-	abstract getAll(): Promise<PostEntity[]>;
-	abstract getById(payload: number): Promise<PostEntity>;
+	abstract getAll(payload: GetAllPostDto): Promise<PostEntity[]>;
+	abstract getById(payload: GetByIdPostDto): Promise<PostEntity>;
 	abstract create(payload: CreatePostDto): Promise<PostEntity>;
 	abstract update(payload: UpdatePostDto): Promise<PostEntity>;
-	abstract delete(payload: number): Promise<PostEntity>;
+	abstract delete(payload: DeletePostDto): Promise<PostEntity>;
 }

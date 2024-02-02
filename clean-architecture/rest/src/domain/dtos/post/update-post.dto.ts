@@ -1,14 +1,14 @@
 export class UpdatePostDto {
 
 	private constructor(
-		private readonly postId?: number,
+		private readonly postId: number,
 		private readonly title?: string,
 		private readonly content?: string,
 	) { }
 
 	get values(): { postId: number, title?: string, content?: string } {
 		return {
-			postId: this.postId!,
+			postId: this.postId,
 			...(this.title ? { title: this.title } : {}),
 			...(this.content ? { content: this.content } : {}),
 		};
