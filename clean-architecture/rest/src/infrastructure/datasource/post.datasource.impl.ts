@@ -18,7 +18,7 @@ export class PostDatasourceImpl implements PostDatasource {
 	}
 
 	async create(payload: CreatePostDto): Promise<PostEntity> {
-		const post = { postId: 1, title: 'title 1 create', content: 'content 1' };
+		const post = { postId: 1, title: payload.title, content: payload.content };
 
 		if (!post) throw 'post not found';
 

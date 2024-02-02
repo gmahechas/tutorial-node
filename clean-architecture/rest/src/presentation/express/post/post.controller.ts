@@ -16,9 +16,9 @@ export class PostController {
 			return;
 		}
 
-		new GetAllPostUseCase(this.postRepository).execute(getAllPostDto)
-			.then((posts) => response.status(200).json({ success: true, message: 'Posts fetched successfully', data: posts }))
-			.catch((error) => response.status(500).json({ success: false, message: 'Internal Server Error', error: { code: 500 } }));
+		new GetAllPostUseCase(this.postRepository)
+			.execute(getAllPostDto)
+			.then((posts) => response.status(200).json({ success: true, message: 'Posts fetched successfully', data: posts }));
 	}
 
 	public getById = (request: Request, response: Response): void => {
@@ -28,9 +28,9 @@ export class PostController {
 			return;
 		}
 
-		new GetByIdPostUseCase(this.postRepository).execute(getByIdPostDto)
-			.then((post) => response.status(200).json({ success: true, message: 'Post fetched successfully', data: post }))
-			.catch((error) => response.status(500).json({ success: false, message: 'Internal Server Error', error: { code: 500 } }));
+		new GetByIdPostUseCase(this.postRepository)
+			.execute(getByIdPostDto)
+			.then((post) => response.status(200).json({ success: true, message: 'Post fetched successfully', data: post }));
 	}
 
 	public create = (request: Request, response: Response): void => {
@@ -40,9 +40,9 @@ export class PostController {
 			return;
 		}
 
-		new CreatePostUseCase(this.postRepository).execute(createPostDto)
-			.then((post) => response.status(200).json({ success: true, message: 'Post created successfully', data: post }))
-			.catch((error) => response.status(500).json({ success: false, message: 'Internal Server Error', error: { code: 500 } }));
+		new CreatePostUseCase(this.postRepository)
+			.execute(createPostDto)
+			.then((post) => response.status(200).json({ success: true, message: 'Post created successfully', data: post }));
 	}
 
 	public update = (request: Request, response: Response): void => {
@@ -52,9 +52,9 @@ export class PostController {
 			return;
 		}
 
-		new UpdatePostUseCase(this.postRepository).execute(updatePostDto)
-			.then((post) => response.status(200).json({ success: true, message: 'Post updated successfully', data: post }))
-			.catch((error) => response.status(500).json({ success: false, message: 'Internal Server Error', error: { code: 500 } }));
+		new UpdatePostUseCase(this.postRepository)
+			.execute(updatePostDto)
+			.then((post) => response.status(200).json({ success: true, message: 'Post updated successfully', data: post }));
 	}
 
 	public delete = (request: Request, response: Response): void => {
@@ -64,8 +64,8 @@ export class PostController {
 			return;
 		}
 
-		new DeletePostUseCase(this.postRepository).execute(deletePostDto)
-			.then((post) => response.status(200).json({ success: true, message: 'Post deleted successfully', data: post }))
-			.catch((error) => response.status(500).json({ success: false, message: 'Internal Server Error', error: { code: 500 } }));;
+		new DeletePostUseCase(this.postRepository)
+			.execute(deletePostDto)
+			.then((post) => response.status(200).json({ success: true, message: 'Post deleted successfully', data: post }));
 	}
 }
