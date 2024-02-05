@@ -9,23 +9,23 @@ export class PostRepositoryImpl implements PostRepository {
 		private readonly datasource: PostDatasource,
 	) {}
 
-	async getAll(payload: GetAllPostDto): Promise<PostEntity[]> {
+	getAll(payload: GetAllPostDto): Promise<PostEntity[]> {
 		return this.datasource.getAll(payload);
 	}
 
-	async getById(payload: GetByIdPostDto): Promise<PostEntity> {
+	getById(payload: GetByIdPostDto): Promise<PostEntity> {
 		return this.datasource.getById(payload);
 	}
 
-	async create(payload: CreatePostDto): Promise<PostEntity> {
+	create(payload: CreatePostDto): Promise<PostEntity> {
 		return this.datasource.create(payload);
 	}
 
-	async update(payload: UpdatePostDto): Promise<PostEntity> {
+	update(payload: UpdatePostDto): Promise<PostEntity> {
 		return this.datasource.update(payload);
 	}
 
-	async delete(payload: DeletePostDto): Promise<PostEntity> {
+	delete(payload: DeletePostDto): Promise<PostEntity> {
 		return this.datasource.delete(payload);
 	}
 }
