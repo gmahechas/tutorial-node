@@ -1,5 +1,5 @@
-import { UpdatePostDto } from '../../dtos';
 import { PostEntity } from '../../entities';
+import { UpdatePostDto } from '../../dtos';
 import { PostRepository } from '../../repositories';
 
 export interface IUpdatePostUseCase {

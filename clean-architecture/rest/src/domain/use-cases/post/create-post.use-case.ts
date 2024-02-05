@@ -1,5 +1,5 @@
-import { CreatePostDto,  } from '../../dtos';
 import { PostEntity } from '../../entities';
+import { CreatePostDto,  } from '../../dtos';
 import { PostRepository } from '../../repositories';
 
 export interface ICreatePostUseCase {

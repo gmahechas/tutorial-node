@@ -1,5 +1,5 @@
-import { DeletePostDto } from '../../dtos';
 import { PostEntity } from '../../entities';
+import { DeletePostDto } from '../../dtos';
 import { PostRepository } from '../../repositories';
 
 export interface IDeletePostUseCase {
